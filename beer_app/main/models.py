@@ -14,11 +14,6 @@ class BeerType(models.Model):
 
 
 class Beer(models.Model):
-    BeerType = models.ForeignKey('BeerType', on_delete=models.CASCADE)
-    Manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    alcohol_percentage = models.DecimalField(max_digits=2, decimal_places=1)
-    color = models.CharField(max_length=255)
     BITTER = 'BT'
     SWEET = 'SW'
     SOUR = 'SO'
@@ -27,14 +22,20 @@ class Beer(models.Model):
     SWEET_SOUR = 'SW-SO'
     NO_AROMA = 'No aroma'
     aroma_choice = [
-        ('BITTER', 'Bitter'),
-        ('SWEET', 'Sweet'),
-        ('SOUR', 'Sour'),
-        ('BITTER_SOUR', 'Bitter-Sour'),
-        ('BITTER_SWEET', 'Bitter-Sweet'),
-        ('SWEET_SOUR', 'Sweer-Sour'),
-        ('NO_AROMA', 'No aroma')
+        (BITTER, 'Bitter'),
+        (SWEET, 'Sweet'),
+        (SOUR, 'Sour'),
+        (BITTER_SOUR, 'Bitter-Sour'),
+        (BITTER_SWEET, 'Bitter-Sweet'),
+        (SWEET_SOUR, 'Sweer-Sour'),
+        (NO_AROMA, 'No aroma')
     ]
+
+    beer_type = models.ForeignKey('BeerType', on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    alcohol_percentage = models.DecimalField(max_digits=2, decimal_places=1)
+    color = models.CharField(max_length=255)
     aroma_choice = models.CharField(max_length=255, choices=aroma_choice)
     water_percentage = models.DecimalField(max_digits=4, decimal_places=2)
     barley_percentage = models.DecimalField(max_digits=4, decimal_places=2)
