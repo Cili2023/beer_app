@@ -1,9 +1,7 @@
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Beer
-from .serializers import BeerSerializer
+from .models import Beer, Manufacturer
+from .serializers import BeerSerializer, ManufacturerSerializer
 
 
 class BeerViewSet(ModelViewSet):
@@ -12,7 +10,8 @@ class BeerViewSet(ModelViewSet):
     serializer_class = BeerSerializer
     queryset = Beer.objects.all()
 
-    # def list(self, request):
-    #     queryset = Beer.objects.all()
-    #     serializer = BeerSerializer(queryset, many=True)
-    #     return Response(serializer.data)
+
+class ManufacturerViewSet(ModelViewSet):
+
+    serializer_class = ManufacturerSerializer
+    queryset = Manufacturer.objects.all()
