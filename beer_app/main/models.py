@@ -45,7 +45,7 @@ class Beer(models.Model):
 
 class Review(models.Model):
 
-    grade = models.IntegerField
+    grade = models.IntegerField()
     beer = models.ForeignKey('Beer', on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     created_at = models.DateTimeField(max_length=50)
