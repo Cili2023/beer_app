@@ -1,7 +1,19 @@
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Beer, Manufacturer
-from .serializers import BeerSerializer, ManufacturerSerializer
+from .models import Beer, Manufacturer, BeerType, Review
+from .serializers import BeerSerializer, ManufacturerSerializer, BeerTypeSerializer, ReviewSerializer
+
+
+class ManufacturerViewSet(ModelViewSet):
+
+    serializer_class = ManufacturerSerializer
+    queryset = Manufacturer.objects.all()
+
+
+class BeerTypeViewSet(ModelViewSet):
+
+    serializer_class = BeerTypeSerializer
+    queryset = BeerType.objects.all()
 
 
 class BeerViewSet(ModelViewSet):
@@ -11,7 +23,4 @@ class BeerViewSet(ModelViewSet):
     queryset = Beer.objects.all()
 
 
-class ManufacturerViewSet(ModelViewSet):
 
-    serializer_class = ManufacturerSerializer
-    queryset = Manufacturer.objects.all()
