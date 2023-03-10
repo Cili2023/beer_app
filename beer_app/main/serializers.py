@@ -39,3 +39,4 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['grade', 'beer', 'description', 'created_at']
+
