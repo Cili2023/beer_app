@@ -30,7 +30,8 @@ class BeerSerializer(serializers.ModelSerializer):
             'water_percentage',
             'barley_percentage',
             'hop_percentage',
-            'yeast_percentage'
+            'yeast_percentage',
+            'current_rating'
         ]
 
 

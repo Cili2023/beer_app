@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -41,6 +42,12 @@ class Beer(models.Model):
     barley_percentage = models.DecimalField(max_digits=4, decimal_places=2)
     hop_percentage = models.DecimalField(max_digits=4, decimal_places=2)
     yeast_percentage = models.DecimalField(max_digits=4, decimal_places=2)
+    current_rating = models.DecimalField(
+        max_digits=2,
+        decimal_places=1,
+        validators=[MinValueValidator(0.0), MaxValueValidator(5.0)],
+        default=0
+    )
 
 
 class Review(models.Model):
