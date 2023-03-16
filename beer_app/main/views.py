@@ -50,14 +50,17 @@ class BeerViewSet(FilterListMixin, ModelViewSet):
     serializer_class = BeerSerializer
     queryset = Beer.objects.all()
 
+    search_fields = [
+        'name',
+        'beer_type__name',
+        'manufacturer__name',
+        'current_rating',
+        'aroma_choice'
+    ]
     filter_backends = (
         filters.SearchFilter,
         filters.OrderingFilter
     )
-
-    search_fields = {
-        'name'
-    }
 
     def list(self, request):
         try:
@@ -73,7 +76,9 @@ class BeerViewSet(FilterListMixin, ModelViewSet):
 class ReviewViewSet(FilterListMixin, ModelViewSet):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
-
+    search_fields = [
+        'grade'
+    ]
     filter_backends = (
         filters.SearchFilter,
         filters.OrderingFilter
@@ -84,6 +89,19 @@ class ReviewViewSet(FilterListMixin, ModelViewSet):
             serializer = self.get_serializer(
                 self.filter_queryset(self.get_ordered_queryset(self.get_queryset(), 'beer')), many=True
             )
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'message': e}, status=status.HTTP_400_BAD_REQUEST)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            # prouciti razlike u serializerima, read serializer,
+            # create serializer, update serializer...
+            # prouciti serializer.is_valid() ->
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
             return Response(serializer.data)
         except Exception as e:
             return Response({'message': e}, status=status.HTTP_400_BAD_REQUEST)
